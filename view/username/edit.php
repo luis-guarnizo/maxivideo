@@ -44,6 +44,14 @@
             <input type="text" name="numero_ejemplar" class="form-control" id="inputPassword" value="<?= $user["numero_ejemplar"]?>">
             </div>
         </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Fecha de alquiler</label>
+            <input type="date" name="fecha_alquiler" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $user["fecha_alquiler"]?>">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Fecha de devolución</label>
+            <input type="date" name="fecha_devolucion" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $user["fecha_devolucion"]?>">
+        </div>
         
 
         <div>

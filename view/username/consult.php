@@ -3,6 +3,14 @@
     require_once("c://xampp/htdocs/maxivideo/controller/usernameController.php");
     $obj = new usernameController();
     $date = $obj->consult($_POST['ident_cliente']); 
+    $date_pelicula = $obj->consult_resumen($date["numero_ejemplar"]);
+    $date_pelicula_info = $obj->consult_pelicula($date_pelicula["id_pelicula"]);
+    $date_pelicula_director = $obj->consult_pelicula_director($date_pelicula["id_pelicula"]);
+    $date_director = $obj->consult_director($date_pelicula_director["id_director"]);
+
+    $date_pelicula_actor = $obj->consult_pelicula_actor($date_pelicula["id_pelicula"]);
+    $date_actor = $obj->consult_actor($date_pelicula_actor["id_actor"]);
+    //print_r($date_pelicula_actor[0]);
 ?>
 
 <table class="table">
@@ -50,7 +58,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <a href="delete.php?id=<?= $date["ident_cliente"]?>" class="btn btn-danger">Eliminar</a>
+                        <a href="delete.php?ident_cliente=<?= $date["ident_cliente"]?>" class="btn btn-danger">Eliminar</a>
                         
                     </div>
                     </div>
@@ -62,6 +70,37 @@
            
     </tbody>
 </table>
+
+<!-- informacion adicional -->
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Titulo de la pelicula</th>
+            <th scope="col">Nombre del director</th>
+            <th scope="col">Nacionalidad del director</th>
+            <th colspan="3">Actores</th>
+            
+        </tr>
+    </thead>
+    <tbody> 
+        <tr>
+            <td scope="col"><?= $date_pelicula_info["titulo"] ?></td>
+            <td scope="col"><?= $date_director["nombre"] ?></td>
+            <td scope="col"><?= $date_pelicula_info["nacionalidad"] ?></td>
+            <!-- actores -->
+            <td scope="col"><?= $date_actor["nombre"] ?></td>
+            <td scope="col"><?= $date["nombre"] ?></td>
+            <td scope="col"><?= $date["nombre"] ?></td>
+                
+            
+            
+        </tr>
+           
+    </tbody>
+</table>
 <?php
     require_once("c://xampp/htdocs/maxivideo/view/head/footer.php");    
 ?>
+
+
+
