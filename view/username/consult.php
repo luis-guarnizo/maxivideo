@@ -9,8 +9,19 @@
     $date_director = $obj->consult_director($date_pelicula_director["id_director"]);
 
     $date_pelicula_actor = $obj->consult_pelicula_actor($date_pelicula["id_pelicula"]);
-    $date_actor = $obj->consult_actor($date_pelicula_actor["id_actor"]);
-    //print_r($date_pelicula_actor[0]);
+    //$date_actor = $obj->consult_actor($date_pelicula_actor["id_actor[0]"]);
+    //print_r($date_pelicula_actor);
+    foreach ($date_pelicula_actor as $arrays){
+        $date_actor = $obj->consult_actor($arrays["id_actor"]);
+        //print_r($arrays["id_actor"]);
+        //print_r($date_actor);
+        foreach ($date_actor as $actor ) {
+            //print_r($actor["nombre"]);
+        }
+    } 
+        
+        
+    //print_r($date_actor);
 ?>
 
 <table class="table">
@@ -67,10 +78,10 @@
             </th>
             
         </tr>
-           
+         
     </tbody>
 </table>
-
+<h2>Resumen de la película</h2>
 <!-- informacion adicional -->
 <table class="table">
     <thead>
@@ -83,24 +94,41 @@
         </tr>
     </thead>
     <tbody> 
-        <tr>
-            <td scope="col"><?= $date_pelicula_info["titulo"] ?></td>
-            <td scope="col"><?= $date_director["nombre"] ?></td>
-            <td scope="col"><?= $date_pelicula_info["nacionalidad"] ?></td>
-            <!-- actores -->
-            <td scope="col"><?= $date_actor["nombre"] ?></td>
-            <td scope="col"><?= $date["nombre"] ?></td>
-            <td scope="col"><?= $date["nombre"] ?></td>
+                     <tr>
+                        <td scope="col"><?= $date_pelicula_info["titulo"] ?></td>
+                        <td scope="col"><?= $date_director["nombre"] ?></td>
+                        <td scope="col"><?= $date_pelicula_info["nacionalidad"] ?></td>
+        <?php if($date_pelicula_actor): ?>
+            <?php foreach ($date_pelicula_actor as $arrays): ?>
+                <?php $date_actor = $obj->consult_actor($arrays["id_actor"]);?>
+                <?php foreach ($date_actor as $actor ):?>
+
+
+                    
+                        
+                        <!-- actores -->
+
+                        <td scope="col"><?= $actor["nombre"] ?></td>
+                        
+                    
+                <?php endforeach ?>
+            <?php endforeach ?>
+                    </tr>
+        <?php else: ?>
+            <tr>
+                <td colspan="3" class="text-center">No hay Registros disponibles</td>
+            </tr>
+        <?php endif; ?>    
+        
+        
+         
+                
                 
             
-            
-        </tr>
+        
            
     </tbody>
 </table>
 <?php
     require_once("c://xampp/htdocs/maxivideo/view/head/footer.php");    
 ?>
-
-
-

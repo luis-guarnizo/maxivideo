@@ -102,11 +102,12 @@
         }
         public function consult_pelicula_actor($id_pelicula){
            
-            $stament = $this->PDO->prepare("SELECT * FROM pelicula_actor  where id_pelicula = :id_pelicula limit 1" );
+           /*  $stament = $this->PDO->prepare("SELECT * FROM pelicula_actor  where id_pelicula = :id_pelicula limit 1" ); */
+            $stament = $this->PDO->prepare("SELECT id_actor FROM pelicula_actor where id_pelicula = :id_pelicula" ); 
             $stament->bindParam(":id_pelicula",$id_pelicula);
             $stament->execute();
             
-            return ($stament->execute()) ? $stament->fetch() : false;
+            return ($stament->execute()) ? $stament->fetchAll() : false;
         }
         public function consult_actor($id_actor){
            
@@ -114,7 +115,7 @@
             $stament->bindParam(":id_actor",$id_actor);
             $stament->execute();
             
-            return ($stament->execute()) ? $stament->fetch() : false;
+            return ($stament->execute()) ? $stament->fetchAll() : false;
         }
         
 

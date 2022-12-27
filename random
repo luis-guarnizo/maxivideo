@@ -1,0 +1,12 @@
+</tr>
+        <?php if($date_pelicula_actor): ?>
+            <?php foreach($date_pelicula_actor as $row): ?>
+                <tr>
+                    <th><?= $row["id"]?></th>
+                    <th><?= $row["nombre"]?></th>
+                    <?php endforeach ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="3" class="text-center">No hay Registros disponibles</td>
+            </tr>
+        <?php endif; ?> 
