@@ -1,6 +1,7 @@
 <?php
     class usernameModel{
         private $PDO;
+        private $validacion = false;
         public function __construct(){
             require_once("c://xampp/htdocs/maxivideo/config/db.php");
             $conexion = new db();
@@ -32,11 +33,17 @@
                 $sql -> bindParam(":numeroEjemplar", $numeroEjemplar);
                 $sql -> bindParam(":fechaAlquiler", $fechaAlquiler);
                 $sql -> bindParam(":fechaDevolucion", $fechaDevolucion);
+                /* if ($sql->execute()) {
+                    $validacion = true;
+                    
+                } 
+                else{
+                    $validacion = false;
+                } */
                 
-                
-
-                return ($sql->execute()) ? $this->PDO->lastInsertId() : false;
                 $this->PDO->commit();
+                return ($sql->execute()) ? $cedula : false;
+                
                 
             } catch (PDOException $ex) {
                 //Something went wrong rollback!
@@ -45,9 +52,12 @@
             }
         }
         
-        public function show($id){
-            $stament = $this->PDO->prepare("SELECT * FROM username where id = :id limit 1");
-            $stament->bindParam(":id",$id);
+        public function show($ident_cliente){
+            /* $stament = $this->PDO->prepare("SELECT * FROM clientes inner join alquiler on clientes.ident_cliente=alquiler.ident_cliente where ident_cliente = :id_cliente limit 1" ); */
+            /* $stament = $this->PDO->prepare("SELECT * FROM clientes, alquiler  where ident_cliente = :id_cliente  limit 1" ); */
+
+            $stament = $this->PDO->prepare("SELECT * FROM clientes inner join alquiler on clientes.ident_cliente=alquiler.ident_cliente where alquiler.ident_cliente = :id_cliente limit 1" );
+            $stament->bindParam(":id_cliente",$ident_cliente);
             return ($stament->execute()) ? $stament->fetch() : false; 
         }
         public function index(){

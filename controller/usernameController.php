@@ -11,8 +11,8 @@
             return ($id!=false)? header("Location:show.php?id=".$id) :  header("Location:create.php");
         }
         public function guardarCliente($cedula, $nombre, $direccion, $correo, $telefono, $numeroEjemplar, $fechaAlquiler, $fechaDevolucion){
-            $id = $this ->model->insertarCliente($cedula, $nombre, $direccion, $correo, $telefono, $numeroEjemplar, $fechaAlquiler, $fechaDevolucion);
-            return ($id!=false)? header("Location:show.php?id=".$id) :  header("Location:create.php");
+            $ident_cliente = $this ->model->insertarCliente($cedula, $nombre, $direccion, $correo, $telefono, $numeroEjemplar, $fechaAlquiler, $fechaDevolucion);
+            return ($ident_cliente!=false)? header("Location:show.php?ident_cliente=".$ident_cliente) :  header("Location:create.php");
         }
         public function show($id){
             return ($this->model->show($id)!=false) ? $this->model->show($id) : header("Location:index.php");

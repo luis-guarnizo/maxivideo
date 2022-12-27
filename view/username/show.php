@@ -2,13 +2,13 @@
     require_once("c://xampp/htdocs/maxivideo/view/head/head.php");
     require_once("c://xampp/htdocs/maxivideo/controller/usernameController.php");
     $obj = new usernameController();
-    $date = $obj->show($_GET['id']);
+    $date = $obj->show($_GET['ident_cliente']);
 ?>
 
 <h2 class="text-center">Detalles del registro</h2>
 <div class="pb-3">
     <a href="index.php" class="btn btn-primary">Regresar</a>
-    <a href="edit.php?id=<?= $date["id"]?> " class="btn btn-success">Actualizar</a>
+    <a href="edit.php?id=<?= $date["ident_cliente"]?> " class="btn btn-success">Actualizar</a>
     <!-- Button trigger modal -->
     <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</a>
     
@@ -26,7 +26,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <a href="delete.php?id=<?= $date["id"]?>" class="btn btn-danger">Eliminar</a>
+            <a href="delete.php?id=<?= $date["ident_cliente"]?>" class="btn btn-danger">Eliminar</a>
             
         </div>
         </div>
@@ -40,12 +40,24 @@
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Nombre</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">correo</th>
+            <th scope="col">telefono</th>
+            <th scope="col">Ejemplar</th>
+            <th scope="col">Fecha Alquiler</th>
+            <th scope="col">Fecha Devolución</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td scope="col"><?= $date["id"] ?></td>
+            <td scope="col"><?= $date["ident_cliente"] ?></td>
             <td scope="col"><?= $date["nombre"] ?></td>
+            <td scope="col"><?= $date["direccion"] ?></td>
+            <td scope="col"><?= $date["correo"] ?></td>
+            <td scope="col"><?= $date["telefono"] ?></td>
+            <td scope="col"><?= $date["id_ejemplar"] ?></td>
+            <td scope="col"><?= $date["fecha_alquiler"] ?></td>
+            <td scope="col"><?= $date["fecha_devolucion"] ?></td>
         </tr>
     </tbody>
 </table>
