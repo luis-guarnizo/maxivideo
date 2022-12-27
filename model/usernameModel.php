@@ -24,9 +24,7 @@
                 $stament -> bindParam(":correo", $correo);
                 $stament -> bindParam(":telefono", $telefono);
                 $stament->execute();
-                // $this->PDO->commit();
-                
-                
+          
                 $inserted_id = $this->PDO->lastInsertId(); //get last id
 
                 $sql = $this->PDO->prepare("INSERT INTO alquiler VALUES(null, :id_cedula, :numeroEjemplar, :fechaAlquiler, :fechaDevolucion)");
@@ -34,9 +32,7 @@
                 $sql -> bindParam(":numeroEjemplar", $numeroEjemplar);
                 $sql -> bindParam(":fechaAlquiler", $fechaAlquiler);
                 $sql -> bindParam(":fechaDevolucion", $fechaDevolucion);
-                /* if ($sql->execute()) {
-                    $validacion = true;
-                } ; */
+                
                 
 
                 return ($sql->execute()) ? $this->PDO->lastInsertId() : false;
@@ -48,21 +44,7 @@
                 throw $ex;
             }
         }
-        /* public function insertarCliente($cedula, $nombre, $direccion, $correo, $telefono){
-            $stament = $this->PDO->prepare("INSERT INTO clientes VALUES(:cedula, :nombre, :direccion, :correo, :telefono, :fechaAlquiler, :fechaDevolucion, :numeroEjemplar)");
-            $stament = $this->PDO->prepare("INSERT INTO alquiler VALUES(null, :cedula, :numeroEjemplar, :fechaAlquiler, :fechaDevolucion)");
-            
-            $stament -> bindParam(":cedula", $cedula);
-            $stament -> bindParam(":nombre", $nombre);
-            $stament -> bindParam(":direccion", $direccion);
-            $stament -> bindParam(":correo", $correo);
-            $stament -> bindParam(":telefono", $telefono);
-            $stament -> bindParam(":numeroEjemplar", $numeroEjemplar);
-            $stament -> bindParam(":fechaAlquiler", $fechaAlquiler);
-            $stament -> bindParam(":fechaDevolucion", $fechaDevolucion);
-           
-            return ($stament->execute()) ? $this->PDO->lastInsertId() : false;
-        } */
+        
         public function show($id){
             $stament = $this->PDO->prepare("SELECT * FROM username where id = :id limit 1");
             $stament->bindParam(":id",$id);
