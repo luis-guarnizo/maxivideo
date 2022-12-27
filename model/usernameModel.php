@@ -60,15 +60,48 @@
             $stament->bindParam(":id_cliente",$ident_cliente);
             return ($stament->execute()) ? $stament->fetch() : false; 
         }
+        public function consult($ident_cliente){
+           $stament = $this->PDO->prepare("SELECT * FROM clientes inner join alquiler on clientes.ident_cliente=alquiler.ident_cliente where alquiler.ident_cliente = :id_cliente limit 1" );
+            $stament->bindParam(":id_cliente",$ident_cliente);
+            return ($stament->execute()) ? $stament->fetch() : false; 
+        }
         public function index(){
-            $stament = $this->PDO->prepare("SELECT * FROM username");
+            $stament = $this->PDO->prepare("SELECT * FROM clientes");
             return ($stament->execute()) ? $stament->fetchAll() : false;
         }
-        public function update($id, $nombre ){
-            $stament = $this->PDO->prepare("UPDATE username SET nombre = :nombre WHERE id = :id");
+        public function update($ident_cliente, $nombre, $direccion, $correo, $telefono, $numero_ejemplar){
+            /* $stament = $this->PDO->prepare("UPDATE clientes SET nombre = :nombre, direccion = :direccion, correo = :correo, telefono = :telefono WHERE ident_cliente = :ident_cliente");
             $stament-> bindParam(":nombre", $nombre);
-            $stament-> bindParam(":id", $id);
-            return ($stament->execute()) ? $id : false;
+            $stament-> bindParam(":direccion", $direccion);
+            $stament-> bindParam(":correo", $correo);
+            $stament-> bindParam(":telefono", $telefono);
+            $stament-> bindParam(":ident_cliente", $ident_cliente); */
+
+            try {
+                $this->PDO->beginTransaction();
+                $stament = $this->PDO->prepare("UPDATE clientes  SET nombre = :nombre, direccion = :direccion, correo = :correo, telefono = :telefono WHERE ident_cliente = :ident_cliente");
+            $stament-> bindParam(":nombre", $nombre);
+            $stament-> bindParam(":direccion", $direccion);
+            $stament-> bindParam(":correo", $correo);
+            $stament-> bindParam(":telefono", $telefono);
+            $stament-> bindParam(":ident_cliente", $ident_cliente);
+            $stament->execute();
+
+            $sql = $this->PDO->prepare("UPDATE alquiler  SET numero_ejemplar = :numero_ejemplar, fecha_alquiler = :fecha_alquiler, fecha_devolucion = :fecha_devolucion WHERE ident_cliente = :ident_cliente");
+            $sql-> bindParam(":numero_ejemplar", $numero_ejemplar);
+            $sql-> bindParam(":fecha_alquiler", $fecha_alquiler);
+            $sql-> bindParam(":fecha_devolucion", $fecha_devolucion);
+            $sql-> bindParam(":ident_cliente", $ident_cliente);
+
+            $this->PDO->commit();
+            return ($sql->execute()) ? $ident_cliente : false;
+
+            
+            } catch (PDOException $ex) {
+                //Something went wrong rollback!
+                $this->PDO->rollBack();
+                throw $ex;
+            }
         }
         public function delete($id){
             $stament = $this->PDO->prepare("DELETE FROM username WHERE id = :id");

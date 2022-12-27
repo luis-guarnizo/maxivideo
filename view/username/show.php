@@ -55,7 +55,7 @@
             <td scope="col"><?= $date["direccion"] ?></td>
             <td scope="col"><?= $date["correo"] ?></td>
             <td scope="col"><?= $date["telefono"] ?></td>
-            <td scope="col"><?= $date["id_ejemplar"] ?></td>
+            <td scope="col"><?= $date["numero_ejemplar"] ?></td>
             <td scope="col"><?= $date["fecha_alquiler"] ?></td>
             <td scope="col"><?= $date["fecha_devolucion"] ?></td>
         </tr>

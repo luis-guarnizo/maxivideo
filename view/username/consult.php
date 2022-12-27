@@ -2,11 +2,9 @@
     require_once("c://xampp/htdocs/maxivideo/view/head/head.php");
     require_once("c://xampp/htdocs/maxivideo/controller/usernameController.php");
     $obj = new usernameController();
-    $date = $obj->show($_GET['ident_cliente']);
+    $date = $obj->consult($_POST['ident_cliente']); 
 ?>
-<div class="mb-3">
-    <a href="create.php" class = "btn btn-primary">Alquilar película</a>
-</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -28,12 +26,13 @@
             <td scope="col"><?= $date["direccion"] ?></td>
             <td scope="col"><?= $date["correo"] ?></td>
             <td scope="col"><?= $date["telefono"] ?></td>
-            <td scope="col"><?= $date["id_ejemplar"] ?></td>
+            <td scope="col"><?= $date["numero_ejemplar"] ?></td>
             <td scope="col"><?= $date["fecha_alquiler"] ?></td>
             <td scope="col"><?= $date["fecha_devolucion"] ?></td>
             <th>
-                <a href="show.php?id=<?= $row["id"]?>" class="btn btn-primary">Ver</a>
-                <a href="edit.php?id=<?= $row["id"]?>" class="btn btn-success">Modificar</a>
+                
+
+                <a href="edit.php?ident_cliente=<?= $date["ident_cliente"]?>" class="btn btn-success">Modificar</a>
                 <!-- Button trigger modal -->
                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</a>
                 
@@ -51,7 +50,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <a href="delete.php?id=<?= $row["id"]?>" class="btn btn-danger">Eliminar</a>
+                        <a href="delete.php?id=<?= $date["ident_cliente"]?>" class="btn btn-danger">Eliminar</a>
                         
                     </div>
                     </div>

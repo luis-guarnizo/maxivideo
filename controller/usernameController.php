@@ -17,11 +17,14 @@
         public function show($id){
             return ($this->model->show($id)!=false) ? $this->model->show($id) : header("Location:index.php");
         }
+        public function consult($id){
+            return ($this->model->consult($id)!=false) ? $this->model->consult($id) : header("Location:index.php");
+        }
         public function index(){
             return ($this->model->index()) ? $this->model->index() : false;
         }
-        public function update($id, $nombre){
-            return ($this->model->update($id, $nombre) != false) ? header("Location:show.php?id=".$id):  header("Location:index.php");
+        public function update($id, $nombre, $direccion, $correo, $telefono, $numero_ejemplar){
+            return ($this->model->update($id, $nombre, $direccion, $correo, $telefono, $numero_ejemplar) != false) ? header("Location:show.php?id=".$id):  header("Location:index.php");
         }
         public function delete($id){
             return ($this->model->delete($id)) ? header("Location:index.php") : header("Location:show.php?id=".$id);

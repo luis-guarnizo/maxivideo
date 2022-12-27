@@ -1,7 +1,7 @@
 <?php
     class db{
         private $host = "localhost";
-        private $dbname = "maxivideo";
+        private $dbname = "video";
         private $user = "root";
         private $password = "";
 
